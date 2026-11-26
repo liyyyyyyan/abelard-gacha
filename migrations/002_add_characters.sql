@@ -29,6 +29,7 @@ FROM (
     UNION ALL SELECT 'Lenlen', 6, 'images/lenlen.png'
     UNION ALL SELECT 'Gray', 3, 'images/gray.png'
     UNION ALL SELECT 'Coco', 3, 'images/coco.png'
+    UNION ALL SELECT 'Character 01', 4, 'images/character-01.jpg'
 ) AS seed
 WHERE NOT EXISTS (
     SELECT 1
