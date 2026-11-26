@@ -81,7 +81,7 @@ def get_storage(cursor, user_id):
         "SELECT c.name, c.rarity, c.img, uc.copies "
         "FROM user_characters uc "
         "JOIN characters c ON c.id = uc.character_id "
-        "WHERE uc.user_id = %s "
+        "WHERE uc.user_id = %s AND c.name <> 'Beggar' "
         "ORDER BY c.rarity DESC, c.name",
         (user_id,),
     )
@@ -246,7 +246,8 @@ def pull():
 
                 cursor.execute(
                     "SELECT id, name, rarity, img FROM characters "
-                    "WHERE rarity = %s ORDER BY RAND() LIMIT 1",
+                    "WHERE rarity = %s AND name <> 'Beggar' "
+                    "ORDER BY RAND() LIMIT 1",
                     (rarity,),
                 )
                 character = cursor.fetchone() or {

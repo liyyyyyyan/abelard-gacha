@@ -87,6 +87,13 @@ class StoragePullTests(unittest.TestCase):
                 for query, params in connection.db_cursor.executed
             )
         )
+        self.assertTrue(
+            any(
+                "SELECT id, name, rarity, img FROM characters" in query
+                and "name <> 'Beggar'" in query
+                for query, _ in connection.db_cursor.executed
+            )
+        )
 
     def test_storage_has_its_own_authenticated_page(self):
         connection = FakeConnection()
@@ -101,6 +108,13 @@ class StoragePullTests(unittest.TestCase):
         self.assertIn(b"Character Storage", response.data)
         self.assertIn(b"Green", response.data)
         self.assertIn(b"5x", response.data)
+        self.assertTrue(
+            any(
+                "FROM user_characters uc" in query
+                and "c.name <> 'Beggar'" in query
+                for query, _ in connection.db_cursor.executed
+            )
+        )
 
 
 if __name__ == "__main__":

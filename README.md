@@ -15,7 +15,8 @@ The MySQL database must contain the existing `users` and `characters` tables.
 `pulls` columns; `characters` needs `id`, `name`, `rarity`, and `img` columns.
 Run `migrations/001_user_characters.sql` against the database to create the
 per-player character storage table. Run `migrations/002_add_characters.sql` to
-add the included character images and rarities.
+add the included character images and rarities. This migration also removes
+Beggar and any copies owned by players.
 After signing in, open Character Storage from the gacha page to view collected
 characters and duplicate counts. The original purple theme is restored, with a
 red theme reserved for six-star character cards.

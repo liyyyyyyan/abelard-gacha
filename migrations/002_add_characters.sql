@@ -1,3 +1,11 @@
+DELETE uc
+FROM user_characters uc
+JOIN characters c ON c.id = uc.character_id
+WHERE c.name = 'Beggar';
+
+DELETE FROM characters
+WHERE name = 'Beggar';
+
 INSERT INTO characters (name, rarity, img)
 SELECT seed.character_name, seed.rarity, seed.image_path
 FROM (
@@ -16,7 +24,6 @@ FROM (
     UNION ALL SELECT 'Happy', 3, 'images/happy.jpg'
     UNION ALL SELECT '1x1', 4, 'images/1x1.png'
     UNION ALL SELECT 'Forehead', 3, 'images/forehead.png'
-    UNION ALL SELECT 'Beggar', 5, 'images/beggar.jpg'
     UNION ALL SELECT 'Cat', 3, 'images/cat.jpg'
     UNION ALL SELECT 'Goth Baddie', 4, 'images/goth baddie.png'
     UNION ALL SELECT 'Lips', 3, 'images/lips.png'
