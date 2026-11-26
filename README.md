@@ -1,0 +1,29 @@
+# Abelard Gacha
+
+The application backend is a Flask app deployed by Vercel. Character images and
+the stylesheet are served from `public/`.
+
+## Run locally
+
+1. Copy `.env.example` to `.env` and set the MySQL connection values and a
+   private `SESSION_SECRET`.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. Run `python app.py` and open `http://127.0.0.1:5000`.
+
+The MySQL database must contain the existing `users` and `characters` tables.
+`users` needs `id`, `username`, `password`, `gems`, `pity4`, `pity5`, and
+`pulls` columns; `characters` needs `name`, `rarity`, and `img` columns.
+
+## Deploy to Vercel
+
+Import the repository into Vercel. It detects the Flask application from
+`app.py` and installs dependencies from `requirements.txt`. Add these
+environment variables to the Vercel project:
+
+- `SESSION_SECRET`: a long, random secret unique to this deployment
+- `MYSQL_HOST`, `MYSQL_PORT`, `MYSQL_USER`, `MYSQL_PASSWORD`, `MYSQL_DATABASE`:
+  connection details for a MySQL database reachable from Vercel
+
+Vercel does not provide this MySQL database. The database provider must permit
+connections from the deployment and the tables described above must already
+exist. Legacy `.php` URLs are rewritten by `vercel.json`.
