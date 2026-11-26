@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Character Storage • Abelard Gacha</title>
+    <link rel="stylesheet" href="/abelardsstype.css">
+</head>
+<body>
+    <h1>{{ user.username }}'s Character Storage</h1>
+    <nav class="page-nav">
+        <a href="/">Back to Gacha</a>
+        <a href="/logout">Logout</a>
+    </nav>
+    <main class="storage-section">
+        <div class="storage-grid">
+            {% for character in storage %}
+            <article class="storage-card r{{ character.rarity }}">
+                <img src="/{{ character.img.lstrip('/') }}" alt="{{ character.name }}">
+                <div class="storage-card-details">
+                    <span>{{ character.rarity }}★ {{ character.name }}</span>
+                    <strong>{{ character.copies }}x</strong>
+                </div>
+            </article>
+            {% else %}
+            <p class="storage-empty">No characters yet. Make a pull to start your storage.</p>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

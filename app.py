@@ -102,14 +102,35 @@ def index():
                 (session["id"],),
             )
             user = cursor.fetchone()
-            storage = get_storage(cursor, session["id"]) if user else []
     finally:
         connection.close()
 
     if user is None:
         session.clear()
         return redirect(url_for("login"))
-    return render_template("index.html", user=user, storage=storage)
+    return render_template("index.html", user=user)
+
+
+@app.get("/storage")
+def storage():
+    if not logged_in():
+        return redirect(url_for("login"))
+
+    connection = get_connection()
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "SELECT username FROM users WHERE id = %s", (session["id"],)
+            )
+            user = cursor.fetchone()
+            characters = get_storage(cursor, session["id"]) if user else []
+    finally:
+        connection.close()
+
+    if user is None:
+        session.clear()
+        return redirect(url_for("login"))
+    return render_template("storage.html", user=user, storage=characters)
 
 
 @app.route("/login.php", methods=["GET", "POST"])

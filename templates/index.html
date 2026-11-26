@@ -7,6 +7,10 @@
 </head>
 <body>
     <h1>Welcome, {{ user.username }}!</h1>
+    <nav class="page-nav">
+        <a href="/storage">Character Storage</a>
+        <a href="/logout">Logout</a>
+    </nav>
     <div class="gems">Gems: <span id="gems">{{ user.gems }}</span></div>
     <div style="margin:20px; font-size:20px; color:gold;">
         4★ Pity: <span id="pity4">{{ user.pity4 }}</span>/10<br>
@@ -16,56 +20,8 @@
     <button onclick="pull(1)">Single Pull (300)</button>
     <button onclick="pull(10)">10x Pull (2700)</button>
     <div id="result" style="margin:40px; min-height:200px;"></div>
-    <section class="storage-section">
-        <h2>Character Storage</h2>
-        <div id="storage" class="storage-grid">
-            {% for character in storage %}
-            <article class="storage-card r{{ character.rarity }}">
-                <img src="/{{ character.img.lstrip('/') }}" alt="{{ character.name }}">
-                <div class="storage-card-details">
-                    <span>{{ character.rarity }}★ {{ character.name }}</span>
-                    <strong>{{ character.copies }}x</strong>
-                </div>
-            </article>
-            {% else %}
-            <p class="storage-empty">No characters yet. Make a pull to start your storage.</p>
-            {% endfor %}
-        </div>
-    </section>
-    <br><br>
-    <a href="/logout" style="color:cyan; font-size:18px;">[ Logout ]</a>
 
     <script>
-    function renderStorage(characters) {
-        const storage = document.getElementById("storage");
-        storage.replaceChildren();
-
-        if (!characters.length) {
-            const empty = document.createElement("p");
-            empty.className = "storage-empty";
-            empty.textContent = "No characters yet. Make a pull to start your storage.";
-            storage.appendChild(empty);
-            return;
-        }
-
-        characters.forEach(character => {
-            const card = document.createElement("article");
-            card.className = `storage-card r${character.rarity}`;
-            const image = document.createElement("img");
-            image.src = "/" + String(character.img || "images/Red.png").replace(/^\/+/, "");
-            image.alt = character.name;
-            const details = document.createElement("div");
-            details.className = "storage-card-details";
-            const name = document.createElement("span");
-            name.textContent = `${character.rarity}★ ${character.name}`;
-            const copies = document.createElement("strong");
-            copies.textContent = `${character.copies}x`;
-            details.append(name, copies);
-            card.append(image, details);
-            storage.appendChild(card);
-        });
-    }
-
     function pull(times) {
         fetch('/api/pull', {
             method: 'POST',
@@ -81,7 +37,6 @@
             document.getElementById("gems").textContent = data.gems;
             document.getElementById("pity4").textContent = data.pity4;
             document.getElementById("pity5").textContent = data.pity5;
-            renderStorage(data.storage);
             document.getElementById("result").innerHTML = "";
 
             data.results.forEach((character, i) => {

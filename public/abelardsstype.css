@@ -1,12 +1,6 @@
 body {
     margin: 0; padding: 20px; font-family: Arial; text-align: center;
-    background-color: #17050a;
-    background-image:
-        radial-gradient(ellipse at top, rgba(121, 13, 35, 0.42), transparent 62%),
-        repeating-linear-gradient(45deg, rgba(255, 105, 125, 0.025) 0 1px, transparent 1px 7px),
-        repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.12) 0 2px, transparent 2px 9px),
-        linear-gradient(135deg, #17050a, #3a0814 55%, #19050c);
-    background-attachment: fixed;
+    background: linear-gradient(135deg, #1a0033, #330066);
     color: white; min-height: 100vh;
 }
 
@@ -28,14 +22,13 @@ button {
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    background: linear-gradient(135deg, #8f1830, #4a0716);
-    border: 1px solid rgba(255, 150, 165, 0.35);
+    background: #ff3399;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     transition: all 0.3s;
 }
 
 button:hover {
-    background: linear-gradient(135deg, #b92543, #681024);
+    background: #ff66bb;
     transform: scale(1.05);
 }
 
@@ -69,19 +62,19 @@ button:hover {
 .card:hover img {
     transform: scale(1.1);
 }
-.r6 {
+.r5 {
+    background: linear-gradient(45deg, #ff6b6b, #ffd93d);
+    box-shadow: 0 0 40px gold;
+}
+.r4 { background: #9b59b6; }
+.r3 { background: #3498db; }
+.card.r6, .storage-card.r6 {
     background:
         repeating-linear-gradient(135deg, rgba(255, 210, 170, 0.08) 0 2px, transparent 2px 9px),
         linear-gradient(145deg, #39000d, #8b1028 55%, #26000a);
     border: 1px solid rgba(255, 190, 130, 0.75);
     box-shadow: 0 0 42px rgba(255, 44, 75, 0.75), inset 0 0 24px rgba(255, 188, 130, 0.12);
 }
-.r5 {
-    background: linear-gradient(145deg, #5c0718, #a21c31);
-    box-shadow: 0 0 32px rgba(255, 69, 92, 0.58);
-}
-.r4 { background: linear-gradient(145deg, #73152a, #a62b42); }
-.r3 { background: linear-gradient(145deg, #45101c, #681728); }
 
 @keyframes pop {
     from { transform: scale(0); }
@@ -95,6 +88,16 @@ button:hover {
 
 .sparkle {
     animation: sparkle 1.5s infinite;
+}
+
+.page-nav {
+    margin: 16px 0 28px;
+}
+
+.page-nav a {
+    color: cyan;
+    font-size: 18px;
+    margin: 0 12px;
 }
 
 .storage-section {
@@ -140,10 +143,6 @@ button:hover {
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.55);
     color: gold;
-}
-
-.storage-card.r6 {
-    border: 1px solid rgba(255, 190, 130, 0.75);
 }
 
 .storage-empty {
