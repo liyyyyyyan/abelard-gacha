@@ -150,17 +150,19 @@ button:hover {
 }
 
 .game-page {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 16px;
     min-height: 100vh;
     padding: 14px 18px 22px;
-    background-color: #41451b;
+    background-color: #30340e;
     background-image:
-        radial-gradient(ellipse at 50% 35%, rgba(201, 188, 80, 0.48), transparent 58%),
-        repeating-linear-gradient(32deg, transparent 0 70px, rgba(33, 37, 13, 0.28) 71px 75px, transparent 76px 145px),
-        repeating-linear-gradient(90deg, rgba(230, 215, 111, 0.08) 0 2px, transparent 2px 12px),
-        linear-gradient(160deg, #777137, #33391b 55%, #766839);
+        linear-gradient(rgba(46, 49, 9, 0.48), rgba(31, 35, 7, 0.58)),
+        url("/images/shrek-background.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     background-attachment: fixed;
     text-align: left;
 }
@@ -223,7 +225,7 @@ button:hover {
     display: flex;
     justify-content: flex-end;
     min-height: 42px;
-    margin: -54px 0 12px;
+    margin: 0 0 12px;
     pointer-events: none;
 }
 
@@ -310,7 +312,7 @@ button:hover {
     .game-page .gems { min-width: 0; font-size: 20px; }
     .game-page .page-nav a { padding: 7px 10px; font-size: 18px; }
     .summon-panel { min-height: 72vh; padding: 12px; }
-    .banner-tabs { margin-top: -50px; }
+    .banner-tabs { margin-top: 0; }
     .banner-tabs span { padding: 7px 14px; font-size: 17px; }
     .summon-controls { align-items: stretch; flex-direction: column; }
     .pull-buttons { width: 100%; }
