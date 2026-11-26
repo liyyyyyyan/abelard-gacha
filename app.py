@@ -61,6 +61,33 @@ def logged_in():
     return isinstance(session.get("id"), int)
 
 
+def draw_rarity(pity4, pity5):
+    pity4 += 1
+    pity5 += 1
+    if secrets.randbelow(10_000) == 0:
+        return 6, 0, pity5
+
+    roll = secrets.randbelow(1000)
+
+    if pity5 >= 100 or roll == 0:
+        return 5, 0, 0
+    if pity4 >= 10 or roll <= 90:
+        return 4, 0, pity5
+    return 3, pity4, pity5
+
+
+def get_storage(cursor, user_id):
+    cursor.execute(
+        "SELECT c.name, c.rarity, c.img, uc.copies "
+        "FROM user_characters uc "
+        "JOIN characters c ON c.id = uc.character_id "
+        "WHERE uc.user_id = %s "
+        "ORDER BY c.rarity DESC, c.name",
+        (user_id,),
+    )
+    return cursor.fetchall()
+
+
 @app.get("/index.php")
 @app.get("/")
 def index():
@@ -75,13 +102,14 @@ def index():
                 (session["id"],),
             )
             user = cursor.fetchone()
+            storage = get_storage(cursor, session["id"]) if user else []
     finally:
         connection.close()
 
     if user is None:
         session.clear()
         return redirect(url_for("login"))
-    return render_template("index.html", user=user)
+    return render_template("index.html", user=user, storage=storage)
 
 
 @app.route("/login.php", methods=["GET", "POST"])
@@ -193,30 +221,10 @@ def pull():
             pity4 = user["pity4"]
             pity5 = user["pity5"]
             for _ in range(times):
-                pity4 += 1
-                pity5 += 1
-                if pity5 >= 50:
-                    rarity = 5
-                    pity5 = 0
-                elif pity4 >= 10:
-                    rarity = secrets.choice((4, 5))
-                    pity4 = 0
-                else:
-                    rate5 = 20 + (pity5 - 40) * 6 if pity5 >= 40 else 1
-                    roll = secrets.randbelow(100) + 1
-                    if roll <= rate5:
-                        rarity = 5
-                    elif roll <= rate5 + 9:
-                        rarity = 4
-                    else:
-                        rarity = 3
-                    if rarity == 5:
-                        pity5 = 0
-                    if rarity >= 4:
-                        pity4 = 0
+                rarity, pity4, pity5 = draw_rarity(pity4, pity5)
 
                 cursor.execute(
-                    "SELECT name, rarity, img FROM characters "
+                    "SELECT id, name, rarity, img FROM characters "
                     "WHERE rarity = %s ORDER BY RAND() LIMIT 1",
                     (rarity,),
                 )
@@ -225,7 +233,20 @@ def pull():
                     "rarity": 3,
                     "img": "images/Red.png",
                 }
-                results.append(character)
+                if "id" in character:
+                    cursor.execute(
+                        "INSERT INTO user_characters "
+                        "(user_id, character_id, copies) VALUES (%s, %s, 1) "
+                        "ON DUPLICATE KEY UPDATE copies = copies + 1",
+                        (session["id"], character["id"]),
+                    )
+                results.append(
+                    {
+                        "name": character["name"],
+                        "rarity": character["rarity"],
+                        "img": character["img"],
+                    }
+                )
 
             new_gems = user["gems"] - cost
             cursor.execute(
@@ -233,11 +254,18 @@ def pull():
                 "pulls = pulls + %s WHERE id = %s",
                 (new_gems, pity4, pity5, times, session["id"]),
             )
+            storage = get_storage(cursor, session["id"])
         connection.commit()
     finally:
         connection.close()
 
-    return jsonify(gems=new_gems, pity4=pity4, pity5=pity5, results=results)
+    return jsonify(
+        gems=new_gems,
+        pity4=pity4,
+        pity5=pity5,
+        results=results,
+        storage=storage,
+    )
 
 
 @app.get("/health")
