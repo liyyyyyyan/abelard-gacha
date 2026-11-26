@@ -20,6 +20,7 @@
     <button onclick="pull(1)">Single Pull (300)</button>
     <button onclick="pull(10)">10x Pull (2700)</button>
     <div id="result" style="margin:40px; min-height:200px;"></div>
+    <audio id="five-star-sound" src="/audio/five-star.mp3" preload="auto"></audio>
 
     <script>
     function pull(times) {
@@ -50,6 +51,13 @@
                     title.textContent = `${character.rarity}★ ${character.name}`;
                     card.append(image, title);
                     document.getElementById("result").appendChild(card);
+                    if (character.rarity === 5) {
+                        const sound = document.getElementById("five-star-sound");
+                        sound.currentTime = 0;
+                        sound.play().catch(error => {
+                            console.warn("Unable to play the five-star sound.", error);
+                        });
+                    }
                 }, i * 350);
             });
         })
