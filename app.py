@@ -64,7 +64,7 @@ def logged_in():
 def draw_rarity(pity4, pity5):
     pity4 += 1
     pity5 += 1
-    if secrets.randbelow(10_000) == 0:
+    if secrets.randbelow(1_000) == 0:
         return 6, 0, pity5
 
     roll = secrets.randbelow(1000)

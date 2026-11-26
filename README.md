@@ -22,7 +22,7 @@ red theme reserved for six-star character cards.
 
 ## Pull rates
 
-Six-star characters have an independent 1-in-10,000 chance. They reset 4-star
+Six-star characters have an independent 1-in-1,000 chance. They reset 4-star
 pity but do not reset 5-star pity. Five-star characters have a 1-in-1,000 base
 chance and are guaranteed by the 100th pull without one. A five-star resets
 both pity counters. Four-star characters have a 9% base chance and are

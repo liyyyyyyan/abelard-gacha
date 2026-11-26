@@ -24,7 +24,7 @@ class DrawRarityTests(unittest.TestCase):
     @patch("app.secrets.randbelow", return_value=0)
     def test_six_star_is_independent_and_preserves_five_star_pity(self, randbelow):
         self.assertEqual(draw_rarity(4, 20), (6, 0, 21))
-        randbelow.assert_called_once_with(10_000)
+        randbelow.assert_called_once_with(1_000)
 
 
 if __name__ == "__main__":

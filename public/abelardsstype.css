@@ -1,6 +1,6 @@
 body {
     margin: 0; padding: 20px; font-family: Arial; text-align: center;
-    background: linear-gradient(135deg, #1a0033, #330066);
+    background: #000 url("/images/dvd-logo.gif") center / cover fixed no-repeat;
     color: white; min-height: 100vh;
 }
 
