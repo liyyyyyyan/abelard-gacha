@@ -148,3 +148,171 @@ button:hover {
 .storage-empty {
     width: 100%;
 }
+
+.game-page {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 100vh;
+    padding: 14px 18px 22px;
+    background-color: #41451b;
+    background-image:
+        radial-gradient(ellipse at 50% 35%, rgba(201, 188, 80, 0.48), transparent 58%),
+        repeating-linear-gradient(32deg, transparent 0 70px, rgba(33, 37, 13, 0.28) 71px 75px, transparent 76px 145px),
+        repeating-linear-gradient(90deg, rgba(230, 215, 111, 0.08) 0 2px, transparent 2px 12px),
+        linear-gradient(160deg, #777137, #33391b 55%, #766839);
+    background-attachment: fixed;
+    text-align: left;
+}
+
+.game-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.game-page .gems {
+    min-width: 250px;
+    margin: 0;
+    padding: 5px 9px;
+    border: 1px solid rgba(32, 36, 7, 0.75);
+    border-radius: 4px;
+    background: rgba(130, 125, 19, 0.88);
+    color: #fff5b4;
+    font-size: 28px;
+    text-align: left;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+
+.game-page .page-nav {
+    display: flex;
+    gap: 10px;
+    margin: 0;
+}
+
+.game-page .page-nav a {
+    padding: 7px 14px;
+    border: 1px solid rgba(32, 36, 7, 0.75);
+    border-radius: 4px;
+    background: rgba(130, 125, 19, 0.88);
+    color: #fff5b4;
+    font-size: 24px;
+    text-decoration: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+}
+
+.game-page .page-nav a:hover {
+    background: rgba(154, 147, 28, 0.96);
+}
+
+.summon-panel {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 100%;
+    min-height: min(72vh, 560px);
+    padding: 14px 18px 20px;
+    border: 2px solid rgba(47, 49, 12, 0.8);
+    border-radius: 22px;
+    background: rgba(54, 57, 8, 0.76);
+    box-shadow: 0 12px 35px rgba(13, 17, 4, 0.35);
+}
+
+.banner-tabs {
+    display: flex;
+    justify-content: flex-end;
+    min-height: 42px;
+    margin: -54px 0 12px;
+    pointer-events: none;
+}
+
+.banner-tabs span {
+    padding: 8px 22px;
+    border: 1px solid rgba(37, 39, 8, 0.8);
+    border-radius: 6px 6px 0 0;
+    background: rgba(28, 31, 7, 0.62);
+    color: rgba(255, 246, 184, 0.92);
+    font-size: 20px;
+}
+
+.banner-tabs .active {
+    background: rgba(127, 119, 17, 0.88);
+}
+
+.game-page #result.summon-results {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 220px;
+    margin: 0;
+    overflow: auto;
+}
+
+.summon-results:empty::before {
+    color: rgba(255, 247, 185, 0.55);
+    content: "Choose a pull to summon a character";
+    font-size: clamp(18px, 3vw, 28px);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.summon-results .card {
+    width: clamp(120px, 17vw, 185px);
+    margin: 4px;
+    padding: 10px;
+}
+
+.summon-results .card img {
+    height: clamp(150px, 26vh, 230px);
+}
+
+.summon-controls {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    padding-top: 12px;
+}
+
+.pity-display {
+    color: #fff6c1;
+    font-size: clamp(18px, 2.4vw, 24px);
+    line-height: 1.35;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.75);
+}
+
+.pull-buttons {
+    display: flex;
+    gap: 14px;
+}
+
+.game-page button {
+    margin: 0;
+    padding: 12px 18px;
+    border: 1px solid rgba(38, 40, 8, 0.9);
+    border-radius: 8px;
+    background: rgba(140, 132, 19, 0.96);
+    color: #fff8cc;
+    font-size: clamp(16px, 2.4vw, 23px);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.game-page button:hover {
+    background: rgba(166, 157, 30, 0.98);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+    .game-page { padding: 12px; }
+    .game-page .gems { min-width: 0; font-size: 20px; }
+    .game-page .page-nav a { padding: 7px 10px; font-size: 18px; }
+    .summon-panel { min-height: 72vh; padding: 12px; }
+    .banner-tabs { margin-top: -50px; }
+    .banner-tabs span { padding: 7px 14px; font-size: 17px; }
+    .summon-controls { align-items: stretch; flex-direction: column; }
+    .pull-buttons { width: 100%; }
+    .game-page button { flex: 1; padding: 12px 8px; font-size: 15px; }
+}

@@ -5,21 +5,28 @@
     <title>ABELARD GACHA</title>
     <link rel="stylesheet" href="/abelardsstype.css">
 </head>
-<body>
-    <h1>Welcome, {{ user.username }}!</h1>
-    <nav class="page-nav">
-        <a href="/storage">Character Storage</a>
-        <a href="/logout">Logout</a>
-    </nav>
-    <div class="gems">Gems: <span id="gems">{{ user.gems }}</span></div>
-    <div style="margin:20px; font-size:20px; color:gold;">
-        4★ Pity: <span id="pity4">{{ user.pity4 }}</span>/10<br>
-        5★ Pity: <span id="pity5">{{ user.pity5 }}</span>/100
-    </div>
-
-    <button onclick="pull(1)">Single Pull (300)</button>
-    <button onclick="pull(10)">10x Pull (2700)</button>
-    <div id="result" style="margin:40px; min-height:200px;"></div>
+<body class="game-page">
+    <header class="game-header">
+        <div class="gems">Gems: <span id="gems">{{ user.gems }}</span></div>
+        <nav class="page-nav">
+            <a href="/storage">Storage</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+    <main class="summon-panel">
+        <div class="banner-tabs"><span class="active">Standard</span></div>
+        <section id="result" class="summon-results" aria-live="polite"></section>
+        <footer class="summon-controls">
+            <div class="pity-display">
+                <div>4★ Pity: <span id="pity4">{{ user.pity4 }}</span>/10</div>
+                <div>5★ Pity: <span id="pity5">{{ user.pity5 }}</span>/100</div>
+            </div>
+            <div class="pull-buttons">
+                <button onclick="pull(1)">Single Pull (300)</button>
+                <button onclick="pull(10)">10x Pull (2700)</button>
+            </div>
+        </footer>
+    </main>
     <audio id="five-star-sound" src="/audio/five-star.mp3" preload="auto"></audio>
 
     <script>

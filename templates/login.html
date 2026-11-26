@@ -3,20 +3,113 @@
 <head>
     <meta charset="utf-8">
     <title>Login • Abelard Gacha</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { background:#000 url("/images/dvd-logo.gif") center / cover fixed no-repeat; color:white; font-family:Arial; text-align:center; padding:100px; }
-        input,button { padding:12px; margin:10px; width:250px; border-radius:50px; border:none; font-size:18px; }
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            color: #17213a;
+            font-family: Arial, sans-serif;
+            background:
+                radial-gradient(ellipse at 18% 80%, rgba(34, 196, 171, 0.8), transparent 34%),
+                radial-gradient(ellipse at 80% 20%, rgba(71, 151, 221, 0.9), transparent 36%),
+                linear-gradient(145deg, #123654, #38a5be 52%, #8bd1c4);
+        }
+        body::before, body::after {
+            position: fixed;
+            z-index: -1;
+            width: 42vw;
+            height: 42vw;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            content: "";
+        }
+        body::before { top: -20vw; left: -12vw; }
+        body::after { right: -15vw; bottom: -27vw; width: 60vw; height: 60vw; }
+        .sign-in-label {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            padding: 12px 30px;
+            border-radius: 999px;
+            background: rgba(222, 237, 255, 0.92);
+            font-size: 18px;
+        }
+        .login-panel {
+            width: min(100%, 490px);
+            padding: 30px 32px 28px;
+            border: 1px solid rgba(20, 42, 75, 0.75);
+            border-radius: 42px;
+            background: rgba(169, 195, 244, 0.78);
+            box-shadow: 0 24px 70px rgba(8, 28, 54, 0.28);
+            text-align: center;
+            backdrop-filter: blur(7px);
+        }
+        h1 {
+            margin: 0 0 30px;
+            color: #fff04f;
+            font-size: clamp(30px, 7vw, 42px);
+            text-shadow: 0 2px 3px rgba(52, 73, 132, 0.25);
+        }
+        .error {
+            margin: -12px 0 18px;
+            color: #7c1122;
+        }
+        form { display: grid; gap: 18px; }
+        input, button {
+            width: 100%;
+            min-height: 62px;
+            padding: 14px 18px;
+            border: 0;
+            border-radius: 999px;
+            font: inherit;
+            font-size: 20px;
+        }
+        input {
+            color: #17213a;
+            background: rgba(222, 237, 255, 0.96);
+        }
+        input:focus-visible, button:focus-visible, a:focus-visible {
+            outline: 3px solid #fff04f;
+            outline-offset: 3px;
+        }
+        button {
+            width: min(100%, 190px);
+            justify-self: center;
+            margin-top: 2px;
+            cursor: pointer;
+            background: rgba(222, 237, 255, 0.96);
+        }
+        button:hover { background: white; }
+        .register-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #17213a;
+            font-size: 16px;
+        }
+        @media (max-width: 480px) {
+            body { padding: 20px; }
+            .sign-in-label { top: 16px; right: 16px; padding: 10px 22px; }
+            .login-panel { padding: 28px 22px 24px; border-radius: 32px; }
+        }
     </style>
 </head>
 <body>
-    <h1 style="color:gold">ABELARD GACHA</h1>
-    <h2>Login</h2>
-    {% if error %}<p role="alert" style="color:#ff8080">{{ error }}</p>{% endif %}
-    <form method="post" action="/login">
-        <input name="username" placeholder="Username" autocomplete="username" required><br>
-        <input name="password" type="password" placeholder="Password" autocomplete="current-password" required><br>
-        <button type="submit">Login</button>
-    </form>
-    <a href="/register">Register here</a>
+    <div class="sign-in-label">Sign in</div>
+    <main class="login-panel">
+        <h1>Welcome Back</h1>
+        {% if error %}<p class="error" role="alert">{{ error }}</p>{% endif %}
+        <form method="post" action="/login">
+            <input name="username" placeholder="Username" autocomplete="username" aria-label="Username" required>
+            <input name="password" type="password" placeholder="Password" autocomplete="current-password" aria-label="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <a class="register-link" href="/register">Create an account</a>
+    </main>
 </body>
 </html>
