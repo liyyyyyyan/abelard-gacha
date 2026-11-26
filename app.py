@@ -144,7 +144,7 @@ def register():
                     if not exists:
                         cursor.execute(
                             "INSERT INTO users (username, password, gems) "
-                            "VALUES (%s, %s, 10000)",
+                            "VALUES (%s, %s, 9999999)",
                             (username, password_hash),
                         )
                 if exists:
